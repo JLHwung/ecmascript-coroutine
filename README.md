@@ -1,4 +1,6 @@
 # ecmascript-coroutine
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/JLHwung/ecmascript-coroutine.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/JLHwung/ecmascript-coroutine.svg?branch=master)](https://travis-ci.org/JLHwung/ecmascript-coroutine)
 
 An ecmascript-coroutine implementation for practice.
