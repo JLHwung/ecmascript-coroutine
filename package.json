@@ -1,0 +1,19 @@
+{
+  "name": "ecmascript-coroutine",
+  "version": "1.0.0",
+  "description": "An ecmascript coroutine implementation for practice",
+  "main": "index.js",
+  "repository": "https://github.com/JLHwung/ecmascript-coroutine.git",
+  "author": "Junliang Huang <i@jhuang.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "prettier": "^1.5.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "format": "prettier --write '*.js'",
+    "precommit": "npm run format && git add"
+  }
+}
