@@ -1,14 +1,17 @@
-const toPromise = value => {
-  if (isPromise(value)) {
-    return value;
-  }
-  return null;
-};
-
+/**
+ * Test whether value is a standard promise
+ * @param value
+ * @return {boolean}
+ */
 const isPromise = value => {
   return value instanceof Promise;
 };
 
+/**
+ * Test whether obj is a valid generator
+ * @param obj
+ * @return {boolean}
+ */
 const isGenerator = obj => {
   return (
     typeof obj === "object" &&
@@ -17,6 +20,11 @@ const isGenerator = obj => {
   );
 };
 
+/**
+ * Apple coroutine transformation on a generator function
+ * @param gen {GeneratorFunction}
+ * @return {Promise}
+ */
 const coroutine = function(gen) {
   return new Promise((resolve, reject) => {
     if (!isGenerator(gen)) {
@@ -46,17 +54,16 @@ const coroutine = function(gen) {
       next(ret);
     };
 
-    const next = ret => {
-      if (ret.done) {
-        return resolve(ret.value);
+    const next = ({ done, value }) => {
+      if (done) {
+        return resolve(value);
       }
-      const value = toPromise(ret.value);
-      if (value !== null && isPromise(value)) {
+      if (isPromise(value)) {
         return value.then(onFulfilled, onRejected);
       }
       return onRejected(
         new TypeError(
-          `The yielded expression ${ret.value} can not evaluate to standard promise`
+          `The yielded expression ${value} can not evaluate to standard promise`
         )
       );
     };
@@ -65,6 +72,11 @@ const coroutine = function(gen) {
   });
 };
 
+/**
+ * wrap coroutine into a promise factory
+ * @param gen
+ * @return {Function}
+ */
 const co = function(gen) {
   const context = this;
   return function(...args) {
