@@ -9,7 +9,7 @@ function getPromise(val, err) {
 
 function* getGenerator(val) {
     const x = yield getPromise(val);
-    return val + 1;
+    return x + 1;
 }
 
 describe("co(* -> yield* <generator>)", () => {
